@@ -17,7 +17,12 @@ def filter_sales_above_threshold(sales: list, threshold: int):
     - Use a loop or list comprehension
     """
     # TODO: Write your code here
-    pass
+    above_threshold = []
+    for sale in sales:
+        if sale > threshold:
+            above_threshold.append(sale)
+   
+    return above_threshold
 
 
 def count_product_codes(codes: list, prefix: str):
@@ -33,7 +38,14 @@ def count_product_codes(codes: list, prefix: str):
     - Return 0 if no matches found
     """
     # TODO: Write your code here
-    pass
+    counter = 0
+    prefix_length = len(prefix)
+    for product in codes:
+        if product[0 : prefix_length] == prefix:
+            counter += 1
+
+    return counter
+            
 
 
 def calculate_moving_average(numbers: list, window_size: int):
@@ -51,7 +63,17 @@ def calculate_moving_average(numbers: list, window_size: int):
     - Return 0.0 for empty list
     """
     # TODO: Write your code here
-    pass
+    if window_size > len(numbers):
+        avg = sum(numbers) / window_size
+        return round(avg,2)
+    
+    elif window_size <= len(numbers):
+        avg = sum(numbers[window_size - 1: ]) / window_size
+        return round(avg,2)
+    
+    else:
+        return 0.0
+        
 
 
 # ==========================================
@@ -72,7 +94,8 @@ def get_top_seller(sales_data: dict):
     - If there's a tie, return the name that appears first alphabetically
     """
     # TODO: Write your code here
-    pass
+    for employee in range(len(sales_data)):
+        highest = sales_data[1]
 
 
 def merge_inventory(warehouse_a: dict, warehouse_b: dict):
@@ -136,4 +159,20 @@ def check_inventory_status(stock_level: int, reorder_point: int, max_capacity: i
        - All other cases: return "OPTIMAL"
     """
     # TODO: Write your code here
-    pass
+    if stock_level < 0 or reorder_point < 0 or max_capacity < 0 or daily_sales < 0 or stock_level > max_capacity:
+        return "Invalid Input"
+    
+    elif stock_level > (max_capacity * 0.9): 
+        return "OVERSTOCKED"
+    elif stock_level < (reorder_point * 0.5): 
+        return "CRITICAL"
+    elif stock_level <= reorder_point: 
+        return "REORDER"
+    elif daily_sales > 0 and stock_level / daily_sales < 7: 
+        return "LOW STOCK"
+    else:
+        return "OPTIMAL"
+        
+    
+    
+    
