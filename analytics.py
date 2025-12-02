@@ -63,12 +63,12 @@ def calculate_moving_average(numbers: list, window_size: int):
     - Return 0.0 for empty list
     """
     # TODO: Write your code here
-    if window_size > len(numbers):
-        avg = sum(numbers) / window_size
+    if window_size > len(numbers) and len(numbers) != 0:
+        avg = sum(numbers) / len(numbers)
         return round(avg,2)
     
-    elif window_size <= len(numbers):
-        avg = sum(numbers[window_size - 1: ]) / window_size
+    elif window_size <= len(numbers) and len(numbers) != 0:
+        avg = sum(numbers[ - window_size: ]) / window_size
         return round(avg,2)
     
     else:
@@ -94,9 +94,11 @@ def get_top_seller(sales_data: dict):
     - If there's a tie, return the name that appears first alphabetically
     """
     # TODO: Write your code here
-    for employee in range(len(sales_data)):
-        highest = sales_data[1]
-
+    if not sales_data:
+        return "No Data"
+    
+    sorted_dict = sorted(sales_data.items(), key = lambda x:(-x[1], x[0]))
+    return sorted_dict[0][0]
 
 def merge_inventory(warehouse_a: dict, warehouse_b: dict):
     """
@@ -116,7 +118,18 @@ def merge_inventory(warehouse_a: dict, warehouse_b: dict):
     - Do NOT modify the original dictionaries
     """
     # TODO: Write your code here
-    pass
+    if not warehouse_a and not warehouse_b:
+        return {}
+    
+    temp_dict = warehouse_a.copy()
+
+    for key, value in warehouse_b.items():
+        if key in temp_dict:
+            temp_dict[key] += value
+        else:
+            temp_dict[key] = value
+
+    return temp_dict
 
 
 # ==========================================
